@@ -1,6 +1,8 @@
 <?php
 // 外のファイルを読み込むよ
 include('functions.php');
+check_session_id();
+
 $pdo = connect_to_db();
 
 // $dbn ='mysql:dbname=voicedemo;charset=utf8mb4;port=3306;host=localhost';
@@ -41,7 +43,7 @@ foreach ($result as $record) {
         <a href='edit.php?id={$record["id"]}'>edit</a>
       </td>
       <td>
-        <a href='delete.php?id={$record["id"]}'>delete</a>
+        <p onclick='MoveCheck()'>delete</p>
       </td>
       
     </tr>
@@ -95,7 +97,9 @@ foreach ($result as $record) {
       <?=$output?>
       </tbody>
     </table>
-          <a href="input.php" class="link">入力画面</a>
+          <p><a href="input.php" class="link">入力画面</a></p>
+          <p><a href="logout.php">ログアウト</a>
+</p>
 
     </div>
 
@@ -107,12 +111,14 @@ foreach ($result as $record) {
 
 function MoveCheck() {
     if( confirm("本当にコメントを削除しますか？") ) {
-        window.location.href = "delete.php?id={$record["id"]}";
+        window.location.href = "delete.php?id=<?=$record["id"]?>";
     }
     else {
         alert("コメント削除を中止しました");
     }
 }
+  
+
   
 </script>
 
